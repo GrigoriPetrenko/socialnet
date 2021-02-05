@@ -1,0 +1,11 @@
+ <section class="page-content profile-page" style="padding-bottom:0">
+	<div class="container gift-list" style="background:#fff;padding:30px;">
+		<div ng-repeat="gift in gifts track by $index" style="display:inline-block;margin-bottom:10px;position:relative;">
+			<div style="display:flex;justify-content:center; align-items:center;font:12px Arial;background:#00adcc;width:30px;height:30px;border-radius:100%;position:absolute;top:0;right:0">{{gift.gift_price}}</div>
+			<input id="gift{{$index}}" ng-model="Gift.item" ng-value="gift.gift_id" name="gift" type="radio" style="display:none;"/>
+			<label for="gift{{$index}}" style="cursor:pointer;display:block;width:80px;height:80px;background:url({{apiUrl}}{{gift.gift_image}});background-size:100%;"></label>
+		</div>
+		<div style="clear:both"></div>
+		<button ng-disabled="!Gift.item" class="user-photos__send-btn" ng-click="sendGift(Gift.item,userID)">Send gift</button>
+	</div>
+</section>

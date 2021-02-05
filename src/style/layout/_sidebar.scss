@@ -1,0 +1,132 @@
+.sidebar {
+	box-sizing: border-box;
+	background: $base-white;
+	
+	&--left {
+		float: left;
+	}
+	&--right {
+		float: right;
+	}
+}
+.main-page-sidebar {
+	width: 21%;
+	margin: 15px 0;
+	padding: 15px;
+}
+.profile-link-module {
+	margin-bottom:25px;
+	&__avatar {
+		width:70px;
+		height:70px;
+		display:inline-block;
+		vertical-align:top;
+	}
+	&__username {
+		display:inline-block;
+	}
+	&-username {
+		padding:8px;
+		font:1.2em Sansation Light;
+		color:#001d23;
+		&__item {
+			margin: 5px 0;
+		}
+	}
+}
+.module-heading {
+	font: 1em Sansation Regular;
+	color:#001d23;
+}
+.friends-online-module {
+	&__item {
+		margin: 15px 0;
+		position: relative;
+	}
+	&__form {
+		margin:10px 0;
+		position:relative;
+	}
+	&__show-more-btn {
+		font:0.9em Sansation Light;
+		padding:10px;
+		box-sizing:border-box;
+		background:#f3f3f3;
+		border:none;
+		width:100%;
+		cursor:pointer;
+		text-align:center;
+		@include transition(all .2s);
+		
+		&:hover {
+			background: darken(#f3f3f3,5%);
+		}
+	}
+	&-search {
+		&__search-btn {
+			position:absolute;
+			right:10px;
+			top: 12px;
+			color:#001d23;
+			opacity:.4;
+			cursor: pointer;
+		}
+		&__input-text {
+			font:0.9em Sansation Light;
+			padding:15px;
+			box-sizing:border-box;
+			background:#f3f3f3;
+			border:none;
+			width:100%;
+			height:40px;
+		}
+	}
+	&-item {
+		&__add-btn {
+			position:absolute;
+			right: 5px;
+			top: 13px;
+			text-decoration:none;
+			font-size: 1em;
+			color: #c2c9ca;
+			@include transition(all .2s);
+			&:hover {
+				color: #898989;
+			}
+		}
+		&__avatar {
+			@include square(45px);
+			display:inline-block;
+			vertical-align:top;
+		}
+		&__username-cover {
+			padding:4px;
+			display:inline-block;
+			font:0.9em Sansation Light;
+			color:#001d23;
+		}
+		&__username {
+			margin-bottom:3px;
+			display: block;
+			text-decoration: none;
+			color: #001d23;
+			&:hover {
+				text-decoration: underline;
+			}
+		}
+		&__caption {
+			color:#898989;
+			font-size:0.8em;
+			text-decoration:none;
+			&:hover {
+				text-decoration: underline;
+			}
+			&--online {
+				display:block;
+				&:hover {
+					text-decoration: none;
+				}
+			}
+		}
+	}
+}

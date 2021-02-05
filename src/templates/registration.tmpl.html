@@ -1,0 +1,43 @@
+    <section class="page-content page-content--flex authorization-content">
+		<div class="container">
+			<form novalidate class="log-in-form">
+				<input type="email" ng-model="userLog.email" name="email" class="log-in-form__text-input" placeholder="Your E-mail"/>
+				<input type="password" ng-model="userLog.password" name="password" class="log-in-form__text-input" placeholder="Password"/>
+				<input type="submit" ng-click="login()" name="authorization" class="log-in-form__btn log-in-form__btn--submit" value="Sign in"/>
+				<button type="button" data-toggle="modal" data-target="#registration" class="log-in-form__btn log-in-form__btn--registration">Registration</button>
+			</form>
+		</div>
+	</section>
+	    
+	<!--Registration-->
+	<div class="modal fade" id="registration" role="dialog">
+		<div class="modal-dialog modal-register">
+			<div class="modal-content modal-register-content">
+				<div class="modal-header">
+					<button type="button" class="modal-close-btn" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title">Registration</h4>
+				</div>
+				<div class="modal-body">
+					<form novalidate name="signUpForm" class="registration-form">
+						<input type="text" ng-minlength="3" maxlength="20" ng-model="user.firstname" ng-pattern="usernamePattern" name="userName" class="registration-form__input-text" placeholder="Your name"/>
+							<div class="input-error-mess" ng-if="signUpForm.userName.$error.pattern">Wrong symbols!</div>
+							<div class="input-error-mess" ng-if="signUpForm.userName.$error.minlength">Name must be at least 3 symbols length!</div>
+						<input type="text" ng-minlength="3" maxlength="20" ng-model="user.surname" ng-pattern="usernamePattern" name="userSurname" class="registration-form__input-text" placeholder="Your surname"/>
+							<div class="input-error-mess" ng-if="signUpForm.userSurname.$error.pattern">Wrong symbols!</div>
+							<div class="input-error-mess" ng-if="signUpForm.userSurname.$error.minlength">Surname must be at least 3 symbols length!</div>
+						<input type="email" ng-model="user.email" name="userEmail" ng-pattern="emailPattern" class="registration-form__input-text" placeholder="Your E-mail"/>
+							<div class="input-error-mess" ng-if="signUpForm.userEmail.$invalid && signUpForm.userEmail.$dirty">Invalid email!</div>
+						<input type="password" ng-model="user.pass" name="userPassword" class="registration-form__input-text" placeholder="Password"/>
+						<input type="password" ng-model="user.rep_pass" name="rep_password" class="registration-form__input-text" placeholder="Repeat password"/>
+						<div class="registration-form__input-cover">
+							<input type="radio" ng-model="user.gender" id="male" name="sex" value="Male">
+								<label for="male" class="registration-form__label">Male</label>
+							<input type="radio" ng-model="user.gender" id="female" name="sex" value="Female">
+								<label for="female" class="registration-form__label">Female</label>
+						</div>
+						<button type="submit" ng-click="register()" name="register" class="log-in-form__btn log-in-form__btn--registration registration-form__btn">Sign up</button>
+					</form>
+				</div>
+			</div>  
+		</div>
+	</div>

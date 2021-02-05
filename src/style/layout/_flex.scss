@@ -1,0 +1,12 @@
+.flex-box {
+	display:flex;
+	&--row {
+		flex-direction: row;
+	}
+	&--jc--center {
+		justify-content: center;
+	}
+	&--ai--center {
+		align-items: center;
+	}
+}

@@ -1,0 +1,133 @@
+<section class="page-content profile-page">
+	<div class="profile-header" ng-if="!$state.includes('account.edit')" style="background:url('img/water-bubbles-920069_1920.jpg'); background-size: auto 100%;">
+				<!--<span class="fi flaticon-photo-camera profile-header__edit-poster-btn"></span>
+				<img ng-src="{{userData.user_poster_url}}" class="profile-header__poster" width="100%">-->
+				<div class="profile-nav-wrapper">
+					<div class="container profile-nav-container" style="position:relative;">
+						<button ng-if="userData.user_id != sessionId" ng-click="showConversation(userData.user_id)" class="profile-message-btn">
+							<span class="fi flaticon-social"></span>
+						</button>
+						<button ng-if="userData.user_id != sessionId" ng-click="showGifts(userData.user_id)" class="profile-gift-btn">
+							<span class="fi flaticon-present"></span>
+						</button>
+						<div class="profile-nickname">
+							<a ui-sref="account.info({userId: userID})">{{userData.user_name + " " + userData.user_surname}}</a>
+							<span title="verified page" ng-if="userData.user_verified == 1" class="fi flaticon-mark-1" style="color: #00adcc; margin-left: 10px; font-size:1.1em;"></span>
+						</div>
+						<div class="profile-nav">
+							<a ui-sref="account.friends({userId: userID})" class="profile-nav__item profile-nav-item">
+								<div class="profile-nav-item__value">{{userFriends.length}}</div>
+								<div class="profile-nav-item__type">friends</div>
+							</a>
+							<a ui-sref="account.friends({userId: userID})" class="profile-nav__item profile-nav-item">
+								<div class="profile-nav-item__value">{{followers.length}}</div>
+								<div class="profile-nav-item__type">followers</div>
+							</a>
+							<a ui-sref="account.photos({userId: userID})" class="profile-nav__item profile-nav-item">
+								<div class="profile-nav-item__value">{{userPhotos.length}}</div>
+								<div class="profile-nav-item__type">photos</div>
+							</a>
+							<!--<div class="profile-nav__item profile-nav-item">
+								<div class="profile-nav-item__value">18K</div>
+								<div class="profile-nav-item__type">videos</div>
+							</div>
+							<div class="profile-nav__item profile-nav-item">
+								<div class="profile-nav-item__value">2145</div>
+								<div class="profile-nav-item__type">audio</div>
+							</div>-->
+							<div class="profile-nav__item profile-nav-item">
+								<div class="profile-nav-item__value">{{userGifts.length}}</div>
+								<div class="profile-nav-item__type">gifts</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="" ng-class="{'container':!$state.includes('account.edit')}">
+				<div class="avatar profile-avatar" ng-if="!$state.includes('account.edit')">
+					<!--<div class="profile-avatar__edit-btn">
+						<span class="profile-avatar__edit-caption">Update avatar</span>
+						<span class="fi flaticon-photo-camera profile-avatar__camera-icon"></span>
+					</div>-->
+					<img ng-src="{{apiUrl}}{{userData.user_avatar}}" ng-if="userData.user_avatar" avatar>
+				</div>
+				<div class="sidebar sidebar--left profile-bar-left" ng-if="!$state.includes('account.edit')">
+					<button ng-if="isFriend == 0" ng-click="sendFriendRequest(userID)" class="profile-bar-left__action-btn profile-bar-left__action-btn--add-friend">
+						<div class="profile-bar-left__action-btn-icon-box">
+							<span class="fi flaticon-add-friend"></span>
+						</div>
+						<span class="profile-bar-left__action-btn-caption">Add to friends</span>
+					</button>
+					<button ng-if="userID == sessionId" ui-sref="account.edit({userId:userID})" class="profile-bar-left__action-btn profile-bar-left__action-btn--edit">
+						<div class="profile-bar-left__action-btn-icon-box">
+							<span class="fi flaticon-tool"></span>
+						</div>
+						<span class="profile-bar-left__action-btn-caption">Edit profile</span>
+					</button>
+					<button ng-if="isFriend == 1" ng-click="deleteFriend(userID)" class="profile-bar-left__action-btn profile-bar-left__action-btn--your-friend">
+						<div class="profile-bar-left__action-btn-icon-box">
+							<span class="fi flaticon-mark-1"></span>
+							<span class="delete-icon">&times;</span>
+						</div>
+						<span class="profile-bar-left__action-btn-caption">Your friend</span>
+						<span class="profile-bar-left__action-btn-caption--delete-friend">Delete friend</span>
+					</button>
+					<div class="profile-description">
+						<p class="profile-description__about" ng-if="userData.user_short_bio">
+							{{userData.user_short_bio}}
+						</p>
+						<div class="profile-description__label" ng-if="userData.user_birthday"><span class="fi flaticon-food profile-description__fi"></span>Birthday: {{userData.user_birthday}}</div>
+						<div class="profile-description__label"><span class="fi flaticon-medical profile-description__fi"></span>Sex: {{userData.user_gender}}</div>
+						<div class="profile-description__label" ng-if="userData.country_name && userData.country_flag"><span class="fi flaticon-web profile-description__fi"></span>Country: <span class="country-icon" style="background:url({{userData.country_flag}})"></span>{{userData.country_name}}</div>
+						<div class="profile-description__label" ng-if="userData.user_marital_status"><span class="fi flaticon-two profile-description__fi"></span>Marital status: {{userData.relationship_type}}</div>
+						<div class="rating-bar">
+							<div class="rating-bar__progress" style="width: {{userData.user_rating/ratingLimit}}%"></div>
+							<div class="rating-bar__value">{{userData.user_rating}}</div>
+						</div>
+					</div>
+					<div class="table-block table--fullwidth profile-social-links">
+						<div class="table-block-row">
+							<div class="table-block-cell">
+								<a ng-href="{{userData.user_vk}}" ng-class="{'profile-social-links__item--disabled': !userData.user_vk}" class="profile-social-links__item" target="_blank" style="background:url(img/vk.svg) no-repeat;"></a>
+							</div>
+							<div class="table-block-cell">
+								<a ng-href="{{userData.user_fb}}" ng-class="{'profile-social-links__item--disabled': !userData.user_fb}" class="profile-social-links__item" target="_blank" style="background:url(img/facebook.svg) no-repeat;"></a>
+							</div>
+							<div class="table-block-cell">
+								<a ng-href="{{userData.user_instagram}}" ng-class="{'profile-social-links__item--disabled': !userData.user_instagram}" class="profile-social-links__item" target="_blank" style="background:url(img/instagram.svg) no-repeat;"></a>
+							</div>
+							<div class="table-block-cell">
+								<a ng-href="{{userData.user_twitter}}" ng-class="{'profile-social-links__item--disabled': !userData.user_twitter}" class="profile-social-links__item" target="_blank" style="background:url(img/twitter.svg) no-repeat;"></a>
+							</div>
+							<div class="table-block-cell">
+								<a ng-href="{{userData.user_youTube}}" ng-class="{'profile-social-links__item--disabled': !userData.user_youTube}" class="profile-social-links__item profile-social-links__item--disabled" target="_blank" style="background:url(img/youtube.svg) no-repeat;"></a>
+							</div>
+							<div class="table-block-cell">
+								<a ng-href="{{userData.user_linkedin}}" ng-class="{'profile-social-links__item--disabled': !userData.user_linkedin}" class="profile-social-links__item" target="_blank" style="background:url(img/linkedin.svg) no-repeat;"></a>
+							</div>
+							<div class="table-block-cell">
+								<a ng-href="{{userData.user_google_plus}}" ng-class="{'profile-social-links__item--disabled': !userData.user_google_plus}" class="profile-social-links__item" target="_blank" style="background:url(img/google-plus.svg) no-repeat"></a>
+							</div>
+						</div>
+					</div>
+					<div class="profile-sidebar-section profile-gifts" ng-if="userGifts.length > 0">
+						<span class="profile-sidebar-section__heading">Gifts </span><span class="profile-sidebar-section__count">{{userGifts.length}}</span>
+						<div class="profile-gifts-list">
+							<div class="profile-gifts-list__item" ng-repeat="gift in userGifts | limitTo: 4">
+								<a href="#" class="profile-gifts-list__image" style="background: url({{apiUrl}}{{gift.gift_image}}); background-size: cover; background-position: 50% 50%;"></a>
+							</div>
+						</div>
+					</div>
+					<!--<div class="profile-sidebar-section profile-friends">
+						<span class="profile-sidebar-section__heading">Friends </span><span class="profile-sidebar-section__count">{{friends.length}}</span>
+						<div class="profile-friends-short-list">
+							<a href="#" class="profile-friends-short-list__link" ng-repeat="friend in friends | limitTo: 9">
+								<img class="profile-friends-short-list__img" ng-src="{{friend.avatarUrl}}">
+								<div class="profile-friends-short-list__username">{{friend.firstName}}</div>
+							</a>
+						</div>
+					</div>-->					
+				</div>
+					<div ui-view class="" ng-class="{'profile-bar-right':!$state.includes('account.edit')}"></div>
+			</div>
+</section>

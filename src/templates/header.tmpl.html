@@ -1,0 +1,59 @@
+<div class="container page-header__cover-box">
+		<a ui-sref="feed" class="logo page-header__logo page-header__flex-box" ng-class="{'page-header__logo--fullwidth':!sessionId}">
+			<span class="first-letter--base">F</span>riendi<span class="first-letter--base">F</span>y
+		</a>
+		<div class="search-box page-header__flex-box" ng-if="sessionId">
+			<form class="search-form">
+				<span class="fi flaticon-search search-form__search-btn"></span>
+				<input class="search-form__input-text" type="text" placeholder="Search..."/>
+			</form>
+		</div>
+		<div class="user-tools page-header__user-tools page-header__flex-box" ng-if="sessionId">
+			<!--<div class="page-header__flex-box" style="margin-right:50px;" ng-if="userData.user_role_fk == 1">
+				<button type="button" class="btn btn-success">Admin panel</button>
+			</div>-->
+			<div class="user-tools__dropdown-cover" ng-init = "toggle=false">
+				<span ng-click="toggle = !toggle" class="fi flaticon-profile user-tools__tool-btn user-tools__tool-btn--users" 
+					  ng-class="{'user-tools__tool-btn--active': followers.length > 0}">
+					<div ng-if="followers.length > 0" class="counter">{{followers.length}}</div>
+				</span>
+				<div ng-if="toggle==true" class="user-tools__dropdown notifications">
+					<div class="notifications__header">Notifications</div>
+					<div class="notifications__content">
+						<div ng-if="followers.length == 0" class="notifications__no-items">No pending friend requests</div>
+						<div class="notifications__item notification" ng-repeat="follower in followers">
+							<a ng-click="goToUser(follower.user_id)" class="avatar notifications__avatar">
+								<img ng-src="{{apiUrl}}{{follower.user_avatar}}" ng-if="follower.user_avatar" avatar>
+							</a>
+							<div class="notifications__text">
+								<p>{{follower.user_name + ' ' + follower.user_surname}} would like to be your friend</p>
+								<div class="notification__btns-cover">
+									<button ng-click="confirmFriendRequest(follower.id)" class="notification__btn notification__btn--accept">Accept</button>
+									<button ng-click="ignoreFriendRequest(follower.id)" class="notification__btn notification__btn--decline">Ignore</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<a ui-sref="message" class="fi flaticon-social user-tools__tool-btn"></a>
+			<div class="user-tools__settings-box">
+				<span class="fi flaticon-gear user-tools__tool-btn user-tools__tool-btn--settings"></span>
+				<div class="dropdown page-header__dropdown user-tools__settings-list">
+					<a ui-sref="account.edit" ui-sref-opts="{reload: true}" class="dropdown__link">Settings</a>
+					<a href="#" ng-click = "logout()" class="dropdown__link">Logout</a>
+				</div>
+			</div>
+			<span class="fi flaticon-money user-tools__tool-btn user-tools__tool-btn--balance"></span>
+			<span class="user-tools__balance-num">{{userData.user_balance}}</span>
+			<a ng-click="goToUser(sessionId)" class="user-nav page-header__flex-box">
+				<div class="user-nav__nickname">
+					{{userData.user_name}}
+				</div>
+				<div class="avatar user-nav__avatar">
+					<img src="{{apiUrl}}{{userData.user_avatar}}" ng-if="userData.user_avatar" avatar>
+				</div>
+				<!--<span class="fi flaticon-arrows user-nav__fi"></span>-->
+			</a>
+		</div>
+</div>

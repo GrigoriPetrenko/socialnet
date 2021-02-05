@@ -1,0 +1,26 @@
+//abstracts
+@import "abstracts/variables";
+
+//base
+@import "base/reset";
+@import "base/fonts";
+@import "base/font-awesome";
+@import "base/mixins";
+@import "base/config";
+@import "base/flaticon";
+
+
+//components
+@import "components/buttons";
+@import "components/modals";
+@import "components/table";
+
+//layout
+@import "layout/header";
+@import "layout/footer";
+@import "layout/content";
+@import "layout/grid";
+@import "layout/flex";
+@import "layout/profile-page";
+@import "layout/sidebar";
+@import "layout/messenger";

@@ -1,0 +1,244 @@
+.page-header {
+	background: #001d23;
+	position: fixed; 
+	z-index: 20;
+	height: 65px;
+	width:100%;
+	
+	&__flex-box {
+		height: 100%;
+		display: flex;
+		align-items: center;
+		justify-content: flex-start;
+	}
+	&__logo {
+		float: left;
+		&--fullwidth {
+			width: 100% !important;
+			display: flex;
+			justify-content: center;
+		}
+	}
+	&__user-tools{
+		float: right;
+		position: relative;
+	}
+	&__cover-box {
+		height: 100%;
+	}
+	&__dropdown {
+		position: absolute;
+		top: 65px;
+		z-index:23;
+	}
+}
+.logo {
+	font: 2.2em euphoria script;
+	width: auto;
+	color: $base-white;
+	text-decoration: none;
+}
+.first-letter {
+	&--base {
+		color: #00adcc;
+	}
+}
+.avatar {
+	@include square(40px);
+	@include border-radius(100%);
+	overflow: hidden;
+}
+.search-box {
+	width:auto;
+	float:left;
+	padding: 0 30px;
+}
+.search-form {
+	position:relative;
+	width: 250px;
+	&__search-btn {
+		opacity: .7;
+		position:absolute;
+		color:black;
+		font-size:1em;
+		top:11px;
+		left:10px
+	}
+	&__input-text {
+		font-family: Sansation Light;
+		width: 100%;
+		height:38px;
+		border:0;
+		padding:10px 10px 10px 35px;
+		box-sizing:border-box
+	}
+}
+.user-tools {
+	&__settings-list {
+		visibility: hidden;
+		opacity: 0;
+		@include transition(all .2s);
+	}
+	&__balance-num {
+		font: 13px Arial;
+		color: $base-white;
+		position: relative;
+		left: -7px;
+	}
+	&__dropdown {
+		position:absolute;
+		width:400px;
+		height:auto;
+		top:44px;
+		right:0;
+		background:#eefbfd;
+		color:#001d23;
+		-webkit-box-shadow: 0px 6px 21px -3px rgba(0,0,0,0.75);
+		-moz-box-shadow: 0px 6px 21px -3px rgba(0,0,0,0.75);
+		box-shadow: 0px 6px 21px -3px rgba(0,0,0,0.75);
+		&-cover {
+			position:relative;
+		}
+	}
+	.notifications {
+		&__content {
+			height:250px;
+			overflow:auto;
+		}
+		&__no-items {
+			font: 14px Sansation Light;
+			text-align: center;
+			padding: 20px;
+		}
+		&__header {
+			padding: 10px;
+			font: 14px Sansation Regular;
+			border-bottom: 1px solid #ccf6fd;
+		}
+		&__item {
+			padding:10px;
+			border-bottom: 1px solid #ccf6fd;	
+			font: 14px Sansation Light;
+		}
+		&__avatar {
+			@include square(42px);
+			display: inline-block;
+			vertical-align: top;
+		}
+		&__text {
+			display: inline-block;
+			padding: 2px 2px 0 8px;
+		}
+		.notification {
+			&__btns-cover {
+				margin-top: 5px;
+			}
+			&__btn {
+				padding: 6px 22px;
+				cursor: pointer;
+				border: 0;
+				@include transition(all .3s);
+				&--accept {
+					background: #05d100;
+					color: $base-white;
+					&:hover {
+						background: #05ad01;
+					}
+				}
+				&--decline {
+					background: #e3e0e0;
+					color: #787373;
+					&:hover {
+						background: #d6d7d8;
+					}
+				}
+			}
+		}
+	}
+	&__tool-btn {
+		opacity: .3;
+		font-size:1.4em;
+		padding:0 10px;
+		@include transition(all .2s);
+		cursor: pointer;
+		position: relative;
+		text-decoration: none;
+		color: $base-white;
+		
+		.counter {
+			display:flex;
+			justify-content:center; 
+			align-items: center;
+			color:white;
+			font:9px Arial;
+			font-weight: bold;
+			position:absolute;
+			top:-3px;
+			left: 5px;
+			min-width:15px;
+			height:15px;
+			border-radius:100%;
+			background: #fb1100;
+		}
+		
+		&:hover, &--active {
+			opacity: 1;
+		}
+		
+		&--users {
+			font-size:1.3em;
+		}
+		&--balance {
+			opacity: 1;
+			color:#00adcc;
+		}
+	}
+	&__settings-box {
+		&:hover .user-tools__settings-list {
+			opacity: 1;
+			visibility: visible;
+		}
+	}
+}
+.user-nav {
+	cursor: pointer;
+	padding: 0 15px;
+	text-decoration: none !important;
+	@include transition(all .2s);
+	&__avatar {
+		border: 2px solid #333
+	}
+	&__nickname {
+		font: 0.8em Sansation Bold;
+		color: $base-white;
+		padding-right: 10px;
+	}
+	&:hover {
+		background: #000e11;
+	}
+	&__fi {
+		font-size: 0.4em;
+		padding-left: 8px;
+	}
+}
+
+.dropdown {
+	min-width:100px;
+	height: auto;
+	overflow: hidden;
+	background: #001d23;
+	&__link {
+		text-decoration: none;
+		color: #fff;
+		display: block;
+		padding: 10px;
+		font: 0.9em Sansation Light;
+		@include transition(all .2s);
+		&:last-child {
+			border-top: 1px solid rgba(255,255,255,.1);
+		}
+		&:hover {
+			color: #999;
+		}
+	}
+}

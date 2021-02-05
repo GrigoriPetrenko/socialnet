@@ -1,0 +1,20 @@
+{
+  "name": "unnamed",
+  "description": "Unnamed project",
+  "main": "index.js",
+  "authors": [
+    "v.l & h.p & j.w"
+  ],
+  "license": "ISC",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    
+  }
+}

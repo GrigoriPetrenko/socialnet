@@ -1,0 +1,50 @@
+
+
+    .fi:before{
+		display: inline-block;
+		font-family: "Flaticon";
+		font-style: normal;
+		font-weight: normal;
+		font-variant: normal;
+		line-height: 1;
+		text-decoration: inherit;
+		text-rendering: optimizeLegibility;
+		text-transform: none;
+		-moz-osx-font-smoothing: grayscale;
+		-webkit-font-smoothing: antialiased;
+		font-smoothing: antialiased;
+    }
+
+.flaticon-circle:before { content: "\f100"; }
+.flaticon-money:before { content: "\f101"; }
+.flaticon-web-1:before { content: "\f102"; }
+.flaticon-present:before { content: "\f103"; }
+.flaticon-search:before { content: "\f104"; }
+.flaticon-gear:before { content: "\f105"; }
+.flaticon-add-friend:before { content: "\f106"; }
+.flaticon-mark:before { content: "\f107"; }
+.flaticon-two:before { content: "\f108"; }
+.flaticon-medical:before { content: "\f109"; }
+.flaticon-social:before { content: "\f10a"; }
+.flaticon-web:before { content: "\f10b"; }
+.flaticon-tool:before { content: "\f10c"; }
+.flaticon-photo-camera:before { content: "\f10d"; }
+.flaticon-mark-1:before { content: "\f10e"; }
+.flaticon-profile:before { content: "\f10f"; }
+.flaticon-food:before { content: "\f110"; }
+.flaticon-arrows:before { content: "\f111"; }
+    
+    $font-Flaticon-add-friend: "\f100";
+    $font-Flaticon-tool: "\f101";
+    $font-Flaticon-photo-camera: "\f102";
+    $font-Flaticon-mark-1: "\f103";
+    $font-Flaticon-web: "\f104";
+    $font-Flaticon-social: "\f105";
+    $font-Flaticon-medical: "\f106";
+    $font-Flaticon-two: "\f107";
+    $font-Flaticon-mark: "\f108";
+    $font-Flaticon-gear: "\f109";
+    $font-Flaticon-arrows: "\f10a";
+    $font-Flaticon-profile: "\f10b";
+    $font-Flaticon-food: "\f10c";
+    $font-Flaticon-search: "\f10d";

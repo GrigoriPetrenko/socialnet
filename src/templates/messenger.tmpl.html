@@ -1,0 +1,54 @@
+ <section class="page-content profile-page" style="padding-bottom:0">
+	<div class="container messenger">
+		<div class="sidebar sidebar--left profile-bar-left messenger__left-box penpals">
+			<div class="penpals__search">
+				<input type="text" ng-model="filters.byName" class="penpals__input-text" placeholder="Search">
+			</div>
+			<div class="penpals__content">
+				<div class="penpal-chat" ng-repeat="penpal in penpals | filter: {user_name: filters.byName}" ng-click="showConversation(penpal.user_id)"
+								ng-class="{'penpal-chat--current':$state.includes('message', {sel: penpal.user_id})}">
+					<button class="penpal-chat__delete-btn">&times;</button>
+					<div class="avatar penpal-chat__avatar">
+						<img ng-src="{{apiUrl}}{{penpal.user_avatar}}" ng-if="penpal.user_avatar" avatar>
+					</div>
+					<div class="penpal-chat__info">
+						<span class="penpal-chat__username">
+							{{penpal.user_name + " " + penpal.user_surname}}
+						</span>
+						<span title="verified page" ng-if="penpal.user_verified == 1" class="fi flaticon-mark-1" style="color: #00adcc; margin-left: 2px; font-size:1.1em;"></span>
+						<p class="penpal-chat__last-message">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </p>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="sidebar sidebar--right profile-bar-right messenger__right-box chat">
+			<div class="chat__header chat-header" ng-if="userID">
+				<div class="chat-header__user-info">
+					<span class="chat-header__username">{{userData.user_name + " " + userData.user_surname}}</span>
+					<span title="verified page" ng-if="userData.user_verified == 1" class="fi flaticon-mark-1" style="color: #00adcc; margin-left: 10px; font-size:1.1em;"></span>
+				</div>
+				<div class="chat-header__right-box">
+					<div class="avatar">
+						<img ng-src="{{apiUrl}}{{userData.user_avatar}}" ng-if="userData.user_avatar" avatar>
+					</div>
+				</div>
+			</div>
+			<div class="chat__content">
+				<div ng-if="messages.length == 0" class="user-photos-list__no-photos" style="width:100%;height:80%;display:flex;justify-content:center;align-items:center;">Your chat messages and history will be displayed here.</div>
+				<div ng-if="!userID" class="user-photos-list__no-photos" style="width:100%;height:80%;display:flex;justify-content:center;align-items:center;">Start your conversation right now!</div>
+				<div class="message" ng-class="{'message--me':message.message_sender == sessionId}" ng-repeat="message in messages">
+					<div class="avatar">
+						<img ng-src="{{apiUrl}}{{message.user_avatar}}" ng-if="message.user_avatar" avatar>
+					</div>
+					<div class="message__text">
+						{{message.message_text}}
+					</div>
+				</div>
+			</div>
+			<div style="position:relative;padding:15px;box-sizing:border-box;position:absolute;bottom:0;width:100%;height:90px;background:#f2fafb;border-top: 1px solid #ccf6fd;">
+				<textarea ng-model="Message.text" style="border-color: #f3f3f3; font-family: Sansation Light;width:100%;height:100%;padding:5px;box-sizing:border-box;padding-right: 55px;" placeholder="Type a message..."></textarea>
+				<button ng-click="sendMessage()" style="position:absolute;top:22px;right:20px;width:45px;height:45px;">Send</button>
+			</div>
+		</div>
+	</div>
+</section>

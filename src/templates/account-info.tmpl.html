@@ -1,0 +1,123 @@
+
+					<div class="profile-user-nav">
+						<a href="" ng-click="setTab(1)" ng-class="{'profile-user-nav__link--active': currentTab == 1}" class="profile-user-nav__link">Timeline</a>
+						<a href="" ng-click="setTab(2)" ng-class="{'profile-user-nav__link--active': currentTab == 2}" class="profile-user-nav__link">About</a>
+					</div>
+					<div ng-if="currentTab == 1 && userPhotos.length != 0" class="profile-photos-module">
+						<a ui-sref="account.photos({userId: userID})" class="profile-photos-module__heading" style="text-decoration:none">
+							{{userData.user_name}}`s photos 
+							<span class="profile-photos-module__count">{{userPhotos.length}}</span>
+						</a>
+						<div style="clear:both"></div>
+						<div class="profile-photos-short-list">
+							<div class="profile-photos-short-list__img-cover" ng-repeat = "photo in userPhotos | limitTo: 4">
+								<a href="#" class="profile-photos-short-list__image" style="background: url({{apiUrl}}{{photo.photo_url}}); background-size: cover; background-position: 50% 50%;"></a>
+							</div>
+						</div>
+					</div>
+					<div ng-if="currentTab == 1" class="profile-timeline">
+						<div class="profile-bar-right__content-box">
+							<form novalidate name="addPostForm">
+								<textarea class="profile-timeline__input-text" placeholder="Write you thinking about..." ng-model="wallPost.text"></textarea>
+								<div class="profile-timeline__submit-box" style="height:56px;box-sizing:border-box">
+									<div class="profile-timeline__media media-btns-box" style="padding: 0 10px; width: 40%; display: flex;height:100%;align-items: center;float:left;">
+										<span class="fi flaticon-photo-camera" style="opacity:.4;font-size:25px;"></span>
+									</div>
+									<button type="button" ng-click="addNewPost()" class="profile-timeline__add-post-btn">Send</button>
+								</div>
+							</form>
+						</div>
+						<div class="profile-bar-right__content-box profile-timeline__no-posts" ng-if="userWall.length == 0">
+							No posts
+						</div>
+						<div class="main-timeline-container__item" ng-repeat = "post in userWall">
+							<div class="table-block" style="margin-bottom:5px;">
+								<div class="table-block-cell profile-timeline-post__cell">
+									<div class="avatar profile-timeline-post__avatar">
+										<img ng-src="{{apiUrl}}{{post.user_avatar}}" ng-if="post.user_avatar" avatar>
+									</div>
+								</div>
+								<div class="table-block-cell profile-timeline-post__cell profile-timeline-post__content">
+									<div class="post-action-menu">
+										<span class="fi flaticon-mark post-action-menu__action-menu-btn"></span>
+										<div class="post-action-menu-list">
+											<!--<a href="" class="post-action-menu-list__item">Edit</a>-->
+											<a href="" class="post-action-menu-list__item" ng-if="post.wall_post_author == sessionId || post.wall_owner == sessionId"
+													ng-click = "deletePost(post.wall_post_id)">Delete</a>
+											<a href="" class="post-action-menu-list__item" ng-if="post.wall_post_author != sessionId">Report</a>
+										</div>
+									</div>
+									<a href="#" ng-click="goToUser(post.wall_post_author)" class="profile-timeline-post__nickname">
+										{{post.user_name + ' ' + post.user_surname}}
+										<span title="verified page" class="fi flaticon-mark-1" ng-if="post.user_verified == 1" style="color: #00adcc; margin-left: 3px; font-size:.9em;"></span>
+									</a>
+									<div class="profile-timeline-post__date">{{post.wall_post_date}}</div>
+									<div class="profile-timeline-post__text">{{post.wall_post_text}}</div>
+								</div>
+							</div>
+							<div class="" style="border-top:1px solid #ebf5f7;">
+								<div class="" style="color:black;padding-top:12px;padding-left:5px">
+									<span ng-click="likePost(post.wall_post_id)" class="fi flaticon-web-1 like-btn"></span>
+									<span class="like-counter" ng-if="post.likes != 0">{{post.likes}}</span>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div ng-if="currentTab == 2" class="profile-personal-module">
+						<!--<a href="" class="profile-personal-module__edit-btn">Edit</a>-->
+						<span class="profile-personal-module__heading">Personal information</span>
+						<span class="user-photos-list__no-photos" 
+								ng-if="!userData.user_activity && !userData.user_interests && !userData.user_fav_mus && !userData.user_fav_mov && !userData.user_fav_books && !userData.user_fav_games">
+								No personal info
+						</span>
+						<div class="table-block profile-personal-info">
+							<div class="table-block-row" ng-if="userData.user_activity">
+								<div class="table-block-cell profile-personal-info__type">
+									Activity
+								</div>
+								<div class="table-block-cell profile-personal-info__value">
+									{{userData.user_activity}}
+								</div>
+							</div>
+							<div class="table-block-row" ng-if="userData.user_interests">
+								<div class="table-block-cell profile-personal-info__type">
+									Interests
+								</div>
+								<div class="table-block-cell profile-personal-info__value">
+									{{userData.user_interests}}
+								</div>
+							</div>
+							<div class="table-block-row" ng-if="userData.user_fav_mus">
+								<div class="table-block-cell profile-personal-info__type">
+									Favourite music
+								</div>
+								<div class="table-block-cell profile-personal-info__value">
+									{{userData.user_fav_mus}}
+								</div>
+							</div>
+							<div class="table-block-row" ng-if="userData.user_fav_mov">
+								<div class="table-block-cell profile-personal-info__type">
+									Favourite movies
+								</div>
+								<div class="table-block-cell profile-personal-info__value">
+									{{userData.user_fav_mov}}
+								</div>
+							</div>
+							<div class="table-block-row" ng-if="userData.user_fav_books">
+								<div class="table-block-cell profile-personal-info__type">
+									Favourite books
+								</div>
+								<div class="table-block-cell profile-personal-info__value">
+									{{userData.user_fav_books}}
+								</div>
+							</div>
+							<div class="table-block-row" ng-if="userData.user_fav_games">
+								<div class="table-block-cell profile-personal-info__type">
+									Favourite games
+								</div>
+								<div class="table-block-cell profile-personal-info__value">
+									{{userData.user_fav_games}}
+								</div>
+							</div>
+						</div>
+					</div>

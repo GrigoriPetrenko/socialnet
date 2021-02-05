@@ -1,0 +1,113 @@
+ <section class="page-content profile-page">
+		<div class="container">
+			<div class="sidebar sidebar--left main-page-sidebar">
+				<div class="profile-link-module">
+					<div class="avatar profile-link-module__avatar">
+						<img ng-src="{{apiUrl}}{{userData.user_avatar}}" avatar ng-if="userData.user_avatar">
+					</div>
+					<a ui-sref="account.info({userId: sessionId})" style="text-decoration:none;" class="profile-link-module__username profile-link-module-username">
+						<div class="profile-link-module-username__item">{{userData.user_name}}</div>
+						<div class="profile-link-module-username__item">{{userData.user_surname}}</div>
+					</a>
+				</div>
+				<div class="friends-online-module">
+					<h3 class="module-heading">Friends online <span ng-if="onlineFriends.length > 0">({{onlineFriends.length}})</span></h3>
+					<span ng-if="onlineFriends.length == 0" style="margin-top: 10px;display:block;font: 14px Sansation Light; color: #001d23">No online friends</span>
+					<form ng-if="onlineFriends.length > 0" class="friends-online-module__form friends-online-module-search">
+						<span class="fi flaticon-search friends-online-module-search__search-btn"></span>
+						<input class="friends-online-module-search__input-text" ng-model="filters.onlineName" type="text" placeholder="search online friends">
+					</form>
+					<div ng-if="onlineFriends.length > 0" class="friends-online-module__item friends-online-module-item" 
+													ng-repeat = "onlineFriend in onlineFriends | filter: {user_name: filters.onlineName} | limitTo: 5">
+						<div class="avatar friends-online-module-item__avatar">
+							<img ng-src="{{apiUrl}}{{onlineFriend.user_avatar}}" ng-if="onlineFriend.user_avatar" avatar>
+						</div>
+						<div class="friends-online-module-item__username-cover">
+							<a ui-sref="account.info({userId: onlineFriend.user_id})" class="friends-online-module-item__username">{{onlineFriend.user_name}}</a>
+							<span class="friends-online-module-item__caption friends-online-module-item__caption--online">Online</span>
+							<a ui-sref="message({sel:onlineFriend.user_id})" class="friends-online-module-item__caption">Send message</a>
+						</div>
+					</div>
+					<!--<button ng-if="onlineFriends.length > 0" class="friends-online-module__show-more-btn">Show more...</button>-->
+				</div>
+			</div>
+			<div class="sidebar sidebar--right main-page-sidebar">
+				<div class="friends-online-module">
+					<h3 class="module-heading">You may know them</h3>
+					<form class="friends-online-module__form friends-online-module-search">
+						<span class="fi flaticon-search friends-online-module-search__search-btn"></span>
+						<input class="friends-online-module-search__input-text" ng-model="filterByName" type="text" placeholder="search users">
+					</form>
+					<div class="friends-online-module__item friends-online-module-item" ng-repeat = "possibleFriend in possibleFriends | filter: {user_name: filterByName} | limitTo: 5 ">
+						<a href="#" ng-click="sendFriendRequest(possibleFriend.user_id)" class="fi flaticon-add-friend friends-online-module-item__add-btn"></a>
+						<div class="avatar friends-online-module-item__avatar">
+							<img ng-src="{{apiUrl}}{{possibleFriend.user_avatar}}" ng-if="possibleFriend.user_avatar" avatar>
+						</div>
+						<div class="friends-online-module-item__username-cover">
+							<a ui-sref="account.info({userId: possibleFriend.user_id})" class="friends-online-module-item__username">{{possibleFriend.user_name + ' ' + possibleFriend.user_surname}}</a>
+							<a href="#" ng-if="possibleFriend.counter" class="friends-online-module-item__caption">{{possibleFriend.counter}} mutual friends</a>
+							<span ng-if="!possibleFriend.counter" class="friends-online-module-item__caption" style="text-decoration:none">Random suggestion</span>
+						</div>
+					</div>
+					<!--<button class="friends-online-module__show-more-btn">Show more...</button>-->
+				</div>
+			</div>
+			<div class="main-timeline-container">
+				<div class="main-timeline-container__item new-users-module">
+					<h3 class="module-heading new-users-module__heading">Last users</h3>
+					<div class="new-users-module__item" ng-repeat = "user in recentUsers | limitTo: 7">
+						<a ui-sref="account.info({userId: user.user_id})" class="avatar new-users-module__avatar">
+							<img ng-src="{{apiUrl}}{{user.user_avatar}}" class="avatar-image" avatar ng-if="user.user_avatar">
+						</a>
+						<a ui-sref="account.info({userId: user.user_id})" class="new-users-module__username">{{user.user_name}}</a>
+					</div>
+				</div>
+				<div class="main-timeline-container__item">
+					<form>
+						<textarea ng-model="wallPost.text" class="profile-timeline__input-text" placeholder="Write you thinking about..."></textarea>
+						<div class="profile-timeline__submit-box" style="height:56px;box-sizing:border-box">
+							<div class="profile-timeline__media media-btns-box" style="padding: 0 10px; width: 40%; display: flex;height:100%;align-items: center;float:left;">
+								<span class="fi flaticon-photo-camera" style="color: rgba(0,29,35,.2);font-size:25px;"></span>
+							</div>
+							<button type="button" ng-click="addNewPost()" name="add_post" class="profile-timeline__add-post-btn">Send</button>
+						</div>
+					</form>
+				</div>
+				<div class="profile-bar-right__content-box profile-timeline__no-posts" ng-if="recentPosts.length == 0">
+					No activity
+				</div>
+				<div class="main-timeline-container__item" ng-repeat="post in recentPosts">
+					<div class="table-block">
+						<div class="table-block-cell profile-timeline-post__cell">
+							<div class="avatar profile-timeline-post__avatar">
+								<img ng-src="{{apiUrl}}{{post.user_avatar}}" ng-if="post.user_avatar" avatar>
+							</div>
+						</div>
+						<div class="table-block-cell profile-timeline-post__cell profile-timeline-post__content">
+							<div class="post-action-menu">
+								<span class="fi flaticon-mark post-action-menu__action-menu-btn"></span>
+								<div class="post-action-menu-list">
+									<a href="" class="post-action-menu-list__item">Hide</a>
+									<a href="" class="post-action-menu-list__item">Report</a>
+								</div>
+							</div>
+							<a ui-sref="account.info({userId: post.wall_post_author})" class="profile-timeline-post__nickname">
+								{{post.user_name + ' ' + post.user_surname}}
+								<span title="verified page" class="fi flaticon-mark-1" ng-if="post.user_verified == 1" style="color: #00adcc; margin-left: 3px; font-size:.9em;"></span>
+							</a>
+							<div class="profile-timeline-post__date">{{post.wall_post_date}}</div>
+							<div class="profile-timeline-post__text">
+								{{post.wall_post_text}}
+							</div>
+						</div>
+					</div>
+					<div class="" style="border-top:1px solid #ebf5f7;">
+						<div class="" style="color:black;padding-top:12px;padding-left:5px">
+							<span ng-click="likePost(post.wall_post_id)" class="fi flaticon-web-1 like-btn"></span>
+							<span class="like-counter" ng-if="post.likes != 0">{{post.likes}}</span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+</section>

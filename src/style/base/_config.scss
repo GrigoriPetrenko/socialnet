@@ -1,0 +1,20 @@
+body {
+	background: #dff7fb;
+}
+textarea {
+	resize: none;
+}
+.no-padding {
+	padding: 0;
+}
+.no-centered-text {
+	text-align: left !important;
+}
+.clearfix {
+  visibility: hidden;
+  display: block;
+  font-size: 0;
+  content: " ";
+  clear: both;
+  height: 0;
+}

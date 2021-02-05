@@ -1,0 +1,117 @@
+<section class="page-content">
+	<div class="container profile-edit">
+		<a ui-sref="account.info({userId: sessionId})" ui-sref-opts="{reload: true}" class="profile-edit__get-back-link"><<< Back to your page</a>
+		<div class="clearfix"></div>
+		<div class="col-md-9 profile-edit__col--left">
+			<div class="profile-edit__content-box" ng-if="currentTab == 1">
+				<h1 class="profile-edit__heading">General information</h1>
+				<form novalidate name="" class="">
+					<input type="text" ng-minlength="3" ng-model="userData.user_name" maxlength="20" ng-value="userData.user_name" ng-pattern="usernamePattern" name="userName" class="registration-form__input-text no-centered-text" placeholder="Your name"/>
+						<div class="input-error-mess" ng-if="signUpForm.userName.$error.pattern">Wrong symbols!</div>
+						<div class="input-error-mess" ng-if="signUpForm.userName.$error.minlength">Name must be at least 3 symbols length!</div>
+					<input type="text" ng-minlength="3" ng-model="userData.user_surname" maxlength="20" ng-value="userData.user_surname" ng-pattern="usernamePattern" name="userSurname" class="registration-form__input-text no-centered-text" placeholder="Your surname"/>
+						<div class="input-error-mess" ng-if="signUpForm.userSurname.$error.pattern">Wrong symbols!</div>
+						<div class="input-error-mess" ng-if="signUpForm.userSurname.$error.minlength">Surname must be at least 3 symbols length!</div> 
+					<div class="registration-form__input-cover no-centered-text">
+						<!--<select name="bd-day" ng-model="userBirthday.day" style="width:auto;" class="registration-form__select">
+							<option value="" style="color:rgba(0,0,0,.2)">Select Day</option> 
+							<option ng-repeat="day in days" ng-value="{{day}}">{{day}}</option>
+						</select>-->
+						<select name="bd-day" ng-init="getDays(userBirthday.month, userBirthday.year)" class="registration-form__select" style="width:auto;"
+								ng-model="userBirthday.day" ng-options="day for day in days"></select>
+						<select name="bd-year" class="registration-form__select" style="width:auto;" 
+								ng-change="getDays(userBirthday.month, userBirthday.year)"
+								ng-model="userBirthday.month" ng-options="month for month in months"></select>
+						<select name="bd-year" class="registration-form__select" style="width:auto;" 
+								ng-change="getDays(userBirthday.month, userBirthday.year)"
+								ng-model="userBirthday.year" ng-options="year for year in years"></select>
+					</div>
+					<div class="registration-form__input-cover no-centered-text">
+						<select name="country" ng-model="userData.user_country" class="registration-form__select" style="width:auto">
+							<option ng-repeat="country in countries" ng-value="{{country.country_id}}">{{country.country_name}}</option>
+						</select>
+						<!--<select name="country" class="registration-form__select" style="width:auto;" 
+								ng-model="userData.user_country" ng-value="{{country.country_id}}"
+								ng-options="country.country_name for country in countries"></select>-->
+					</div> 
+					<div class="registration-form__input-cover no-centered-text">
+						<select name="marital" ng-model="userData.user_marital_status" class="registration-form__select" style="width:auto">
+							<option ng-repeat="relationship in relationships" ng-value="{{relationship.relationship_id}}">{{relationship.relationship_type}}</option>
+						</select>
+						<!--<select name="marital" class="registration-form__select" style="width:auto;" 
+								ng-model="userData.user_marital_status" ng-value="{{country.country_id}}"
+								ng-options="country.country_name for relationship in relationships"></select>-->
+					</div>
+					<div class="registration-form__input-cover no-centered-text">
+						<input type="radio" ng-model="userGender.type" id="male" name="sex" value="Male">
+							<label for="male" class="registration-form__label">Male</label>
+						<input type="radio" ng-model="userGender.type" id="female" name="sex" value="Female">
+							<label for="female" class="registration-form__label">Female</label>
+					</div>
+					<div class="registration-form__input-cover no-centered-text" style="padding-left:3px;">
+						<span style="font:14px Sansation Regular">Write some words about yourselve:</span>
+						<textarea class="registration-form__textarea" ng-model="userData.user_short_bio" placeholder="Short biography">{{userData.user_short_bio}}</textarea>
+					</div>
+					<button style="width:30%" ng-click="updateUserAbout()" ng-disabled="signUpForm.$invalid" type="submit" name="save_changes" class="log-in-form__btn log-in-form__btn--registration registration-form__btn">Save changes</button>
+				</form>
+			</div>
+			<div class="profile-edit__content-box" ng-if="currentTab == 2">
+				<h1 class="profile-edit__heading">Contact information</h1>
+				<form novalidate name="" class="">
+					<input type="text" ng-model="userData.user_vk" ng-value="userData.user_vk" name="" class="registration-form__input-text no-centered-text" placeholder="Your vk"/>
+					<input type="text" ng-model="userData.user_fb" ng-value="userData.user_fb" name="" class="registration-form__input-text no-centered-text" placeholder="Your facebook"/>		
+					<input type="text" ng-model="userData.user_instagram" ng-value="userData.user_instagram" name="" class="registration-form__input-text no-centered-text" placeholder="Your instagram"/>
+					<input type="text" ng-model="userData.user_twitter" ng-value="userData.user_twitter" name="" class="registration-form__input-text no-centered-text" placeholder="Your Twitter"/>
+					<input type="text" ng-model="userData.user_youTube" ng-value="userData.user_youTube" name="" class="registration-form__input-text no-centered-text" placeholder="Your youTube"/>
+					<input type="text" ng-model="userData.user_linkedin" ng-value="userData.user_linkedin" name="" class="registration-form__input-text no-centered-text" placeholder="Your Linkendin"/>
+					<input type="text" ng-model="userData.user_google_plus" ng-value="userData.user_google_plus" name="" class="registration-form__input-text no-centered-text" placeholder="Your google+"/>
+				</form>
+				<button style="width:30%" ng-click="updateUserAbout()" type="submit" name="save_changes" class="log-in-form__btn log-in-form__btn--registration registration-form__btn">Save changes</button>
+			</div>
+			<div class="profile-edit__content-box" ng-if="currentTab == 3">
+				<h1 class="profile-edit__heading">About & Interests</h1>
+				<form novalidate name="" class="">
+					<span style="font:14px Sansation Regular">Work/activity</span>
+					<textarea class="registration-form__textarea" ng-model="userData.user_activity" placeholder="Work/activity">{{userData.user_activity}}</textarea>
+					<span style="font:14px Sansation Regular">Interests</span>
+					<textarea class="registration-form__textarea" ng-model="userData.user_interests" placeholder="Interests">{{userData.user_interests}}</textarea>
+					<span style="font:14px Sansation Regular">Favourite music</span>
+					<textarea class="registration-form__textarea" ng-model="userData.user_fav_mus" placeholder="Favourite music">{{userData.user_fav_mus}}</textarea>						
+					<span style="font:14px Sansation Regular">Favourite books</span>
+					<textarea class="registration-form__textarea" ng-model="userData.user_fav_books" placeholder="Favourite books">{{userData.user_fav_books}}</textarea>			
+					<span style="font:14px Sansation Regular">Favourite movies</span>
+					<textarea class="registration-form__textarea" ng-model="userData.user_fav_mov" placeholder="Favourite movies">{{userData.user_fav_mov}}</textarea>						
+					<span style="font:14px Sansation Regular">Favourite games</span>
+					<textarea class="registration-form__textarea" ng-model="userData.user_fav_games" placeholder="Favourite games">{{userData.user_fav_games}}</textarea>							
+				</form>
+				<button style="width:30%" ng-click="updateUserAbout()" type="submit" name="save_changes" class="log-in-form__btn log-in-form__btn--registration registration-form__btn">Save changes</button>
+			</div>
+			<div class="profile-edit__content-box" ng-if="currentTab == 4">
+				<h1 class="profile-edit__heading">Avatar</h1>
+				<div class="registration-form__input-cover no-centered-text">
+					<span style="font:14px Sansation Regular">Choose avatar:</span>
+					<input type="file" file-input="avatar.files" accept="image/png,image/gif,image/jpeg" id="user-avatar" class="user-photos__file-form">
+					<label for="user-avatar" class="user-photos__file-label">Choose file</label>
+					<button class="user-photos__send-btn" ng-click="updateAvatar()">Upload</button>
+				</div>
+				<div class="avatar" style="width:120px;height:120px;display:inline-block;">
+					<img ng-src="{{apiUrl}}{{userData.user_avatar}}" ng-if="userData.user_avatar" avatar>
+				</div>
+				<div class="avatar" style="width:90px;height:90px;display:inline-block;">
+					<img ng-src="{{apiUrl}}{{userData.user_avatar}}" ng-if="userData.user_avatar" avatar>
+				</div>
+				<div class="avatar" style="width:60px; height: 60px;display:inline-block;">
+					<img ng-src="{{apiUrl}}{{userData.user_avatar}}" ng-if="userData.user_avatar" avatar>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-3 profile-edit__col--right">
+			<div class="profile-edit__nav vertical-nav">
+				<a href="" ng-click="setTab(1)" ng-class="{'vertical-nav__item--current':currentTab == 1}" class="vertical-nav__item">General</a>
+				<a href="" ng-click="setTab(2)" ng-class="{'vertical-nav__item--current':currentTab == 2}" class="vertical-nav__item">Contacts</a>
+				<a href="" ng-click="setTab(3)" ng-class="{'vertical-nav__item--current':currentTab == 3}" class="vertical-nav__item">Interests</a>
+				<a href="" ng-click="setTab(4)" ng-class="{'vertical-nav__item--current':currentTab == 4}" class="vertical-nav__item">Avatar</a>
+			</div>
+		</div>
+	</div>
+</section>

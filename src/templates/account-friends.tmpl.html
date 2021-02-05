@@ -1,0 +1,74 @@
+<div class="profile-user-nav">
+	<a href="" ng-click="setTab(1);filters.byName = ''" ng-class="{'profile-user-nav__link--active': currentTab == 1}" class="profile-user-nav__link">All friends</a>
+	<a href="" ng-click="setTab(2);filters.byName = ''" ng-class="{'profile-user-nav__link--active': currentTab == 2}" class="profile-user-nav__link">Online friends</a>
+	<a href="" ng-click="setTab(3);filters.byName = ''" ng-class="{'profile-user-nav__link--active': currentTab == 3}" class="profile-user-nav__link">Followers</a>
+</div>
+<form class="search-form friends__search-form">
+	<span class="fi flaticon-search search-form__search-btn"></span>
+	<input class="search-form__input-text" ng-model="filters.byName" type="text" placeholder="Search in friends..."/>
+</form>
+<div class="friends">
+	<div ng-if="currentTab == 1">
+		<span class="user-photos-list__no-photos" ng-if="userFriends.length == 0">No friends</span>
+		<div class="friends__item friend" ng-repeat = "friend in userFriends | filter: {user_name:filters.byName}">
+			<div class="friend__inner">
+				<a href="#" ng-if="userID == sessionId" ng-click="deleteFriend(friend.user_id)" class="friend__delete-btn">&times;</a>
+				<div class="avatar friend__avatar">
+					<img ng-src="{{apiUrl}}{{friend.user_avatar}}" ng-if="friend.user_avatar" avatar>
+				</div>
+				<div class="friend__info">
+					<a ng-click="goToUser(friend.user_id)" href="#" class="friend__username">
+						{{friend.user_name + ' ' + friend.user_surname}}
+						<span title="verified page" class="fi flaticon-mark-1" ng-if="friend.user_verified == 1" style="color: #00adcc; margin-left: 3px; font-size:.9em;"></span>
+					</a>
+					<div class="friend__country">
+						<span class="country-icon" style="vertical-align:bottom;background:url({{friend.country_flag}})"></span>
+						{{friend.country_name}}
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>	
+	<div ng-if="currentTab == 2">
+		<span class="user-photos-list__no-photos" ng-if="onlineFriends.length == 0">No friends online</span>
+		<div class="friends__item friend" ng-repeat = "friend in onlineFriends | filter: {user_name:filters.byName}">
+			<div class="friend__inner">
+				<a href="#" ng-if="userID == sessionId" class="friend__delete-btn" ng-click="deleteFriend(friend.user_id)">&times;</a>
+				<div class="avatar friend__avatar">
+					<img ng-src="{{apiUrl}}{{friend.user_avatar}}" ng-if="friend.user_avatar" avatar>
+				</div>
+				<div class="friend__info">
+					<a ng-click="goToUser(friend.user_id)" href="#" class="friend__username">
+						{{friend.user_name + ' ' + friend.user_surname}}
+						<span title="verified page" class="fi flaticon-mark-1" ng-if="friend.user_verified == 1" style="color: #00adcc; margin-left: 3px; font-size:.9em;"></span>
+					</a>
+					<div class="friend__country">
+						<span class="country-icon" style="vertical-align:bottom;background:url({{friend.country_flag}})"></span>
+						{{friend.country_name}}
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div ng-if="currentTab == 3">
+		<span class="user-photos-list__no-photos" ng-if="followers.length == 0">No pending friend requests</span>
+		<div class="friends__item friend" ng-repeat = "follower in followers | filter: {user_name:filters.byName}">
+			<div class="friend__inner">
+				<a href="#" ng-if="userID == sessionId" ng-click="confirmFriendRequest(follower.id)" class="friend__delete-btn">+</a>
+				<div class="avatar friend__avatar">
+					<img ng-src="{{apiUrl}}{{follower.user_avatar}}" ng-if="follower.user_avatar" avatar>
+				</div>
+				<div class="friend__info">
+					<a ng-click="goToUser(friend.user_id)" href="#" class="friend__username">
+						{{follower.user_name + ' ' + follower.user_surname}}
+						<span title="verified page" class="fi flaticon-mark-1" ng-if="follower.user_verified == 1" style="color: #00adcc; margin-left: 3px; font-size:.9em;"></span>
+					</a>
+					<div class="friend__country">
+						<span class="country-icon" style="vertical-align:bottom;background:url({{follower.country_flag}})"></span>
+						{{follower.country_name}}
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,14 @@
+<div class="user-photos">
+	<div class="user-photos__input-box" ng-hide="userID != sessionId">
+		<input type="file" file-input="files" accept="image/png,image/gif,image/jpeg" id="user-photo" class="user-photos__file-form">
+		<label for="user-photo" class="user-photos__file-label">Choose file</label>
+		<button class="user-photos__send-btn" ng-click="uploadPhoto()">Upload</button>
+	</div>
+	<div class="user-photos-list">
+		<span class="user-photos-list__no-photos" ng-if="userPhotos.length == 0">No photos</span>
+		<div class="user-photos-list__item" ng-repeat = "photo in userPhotos">
+			<a href="" class="user-photos-list__image" style="background: url({{apiUrl}}{{photo.photo_url}}); background-size: cover; background-position: 50% 50%;"></a>
+			<button class="user-photos-list__delete-btn" ng-if="userID == sessionId" ng-click="deletePhoto(photo.photo_id)">&times;</button>
+		</div>
+	</div>
+</div>

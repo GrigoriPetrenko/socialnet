@@ -1,0 +1,83 @@
+ <section class="page-content profile-page">
+		<div class="container">
+			<div class="sidebar sidebar--left main-page-sidebar">
+				<div class="profile-link-module">
+					<div class="avatar profile-link-module__avatar">
+						<img ng-src="{{apiUrl}}{{userData.user_avatar}}" avatar ng-if="userData.user_avatar">
+					</div>
+					<div class="profile-link-module__username profile-link-module-username">
+						<div class="profile-link-module-username__item">{{userData.user_name}}</div>
+						<div class="profile-link-module-username__item">{{userData.user_surname}}</div>
+					</div>
+				</div>
+				<div class="friends-online-module">
+					<h3 class="module-heading">Friends online <span ng-if="onlineFriends.length > 0">({{onlineFriends.length}})</span></h3>
+					<span ng-if="onlineFriends.length == 0" style="margin-top: 10px;display:block;font: 14px Sansation Light; color: #001d23">No online friends</span>
+					<form ng-if="onlineFriends.length > 0" class="friends-online-module__form friends-online-module-search">
+						<span class="fi flaticon-search friends-online-module-search__search-btn"></span>
+						<input class="friends-online-module-search__input-text" type="text" placeholder="search online friends">
+					</form>
+					<div ng-if="onlineFriends.length > 0" class="friends-online-module__item friends-online-module-item" 
+													ng-repeat = "onlineFriend in onlineFriends | limitTo: 5">
+						<div class="avatar friends-online-module-item__avatar">
+							<img ng-src="{{apiUrl}}{{onlineFriend.user_avatar}}" ng-if="onlineFriend.user_avatar" avatar>
+						</div>
+						<div class="friends-online-module-item__username-cover">
+							<a ui-sref="account.info({userId: onlineFriend.user_id})" class="friends-online-module-item__username">{{onlineFriend.user_name}}</a>
+							<span class="friends-online-module-item__caption friends-online-module-item__caption--online">Online</span>
+							<a href="#" class="friends-online-module-item__caption">Send message</a>
+						</div>
+					</div>
+					<button ng-if="onlineFriends.length > 0" class="friends-online-module__show-more-btn">Show more...</button>
+				</div>
+			</div>
+			<div class="sidebar sidebar--right main-page-sidebar">
+				<div class="friends-online-module">
+					<h3 class="module-heading">Filters</h3>
+				</div>
+			</div>
+			<div class="main-timeline-container">
+				<div class="main-timeline-container__item" style="padding:10px">
+					<form class="search-form" style="width:100%">
+						<button type="submit" ng-click="searchUsers()" tabindex="-1" class="fi flaticon-search search-form__search-btn" style="cursor:pointer;background:none;border:0;padding:0"></button>
+						<input ng-model="search.query" class="search-form__input-text" type="text" placeholder="Start typing word..."/>
+					</form>
+				</div>
+			</div>
+			<div class="main-timeline-container">
+				<div class="main-timeline-container__item">
+					<span ng-if="!resultUsers" style="color:#898989;font: .9em Sansation Regular">No results found</span>
+					<span ng-if="resultUsers" style="color:#898989;font: .9em Sansation Regular;margin-bottom: 15px;display:block">People: <span style="color:#001d23">{{resultUsers.length}}</span></span>
+					<div class="friends__item friend" ng-repeat="user in resultUsers" style="width:100%;height: 120px;display:block;">
+						<div class="friend__inner">
+							<!--<button class="profile-bar-left__action-btn profile-bar-left__action-btn--add-friend">
+								<div class="profile-bar-left__action-btn-icon-box">
+									<span class="fi flaticon-add-friend"></span>
+								</div>
+								<span class="profile-bar-left__action-btn-caption">Add to friends</span>
+							</button>
+							<button ng-if="user.isFriend == 0" class="profile-bar-left__action-btn profile-bar-left__action-btn--your-friend">
+								<div class="profile-bar-left__action-btn-icon-box">
+									<span class="fi flaticon-mark-1"></span>
+								</div>
+								<span class="profile-bar-left__action-btn-caption">Your friend</span>
+							</button>-->
+							<a ui-sref="account.info({userId: user.user_id})" class="avatar friend__avatar" style="width:100px;height:100px;">
+								<img ng-src="{{apiUrl}}{{user.user_avatar}}" ng-if="user.user_avatar" avatar>
+							</a>
+							<div class="friend__info">
+								<a ui-sref="account.info({userId: user.user_id})" class="friend__username">
+									{{user.user_name + ' ' + user.user_surname}}
+									<span title="verified page" class="fi flaticon-mark-1" ng-if="user.user_verified == 1" style="color: #00adcc; margin-left: 3px; font-size:.9em;"></span>
+								</a>
+								<div class="friend__country">
+									<span class="country-icon" style="vertical-align:bottom;background:url({{user.country_flag}})"></span>
+									{{user.country_name}}
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+</section>

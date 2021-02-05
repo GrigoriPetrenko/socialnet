@@ -1,0 +1,24 @@
+.table-block {
+	display: table;
+  
+	&-row {
+		display: table-row;
+	}
+	&-cell {
+		display: table-cell;
+	}
+	&-head {
+		display: table-header-group;
+	}
+	&-body {
+		display: table-row-group;
+	}
+	&-footer {
+		display: table-footer-group;
+	}
+}
+.table {
+	&--fullwidth {
+		width: 100%;
+	}
+}
