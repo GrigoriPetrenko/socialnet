@@ -18,15 +18,15 @@ This project was created with input from my fellow student for educational purpo
 
 	- In the project directory run
 
-``` shell
-npm install
-```
+
+### `npm install`
+
 
 	- Then
 	
-``` shell
-gulp start
-```
+
+### `gulp start`
+
 
 	- goto http://localhost:9000/ click registration and fill out the form.
 	Next, open  http://localhost:9000/ again and log-in with Login "admin" and password "qwerty".
